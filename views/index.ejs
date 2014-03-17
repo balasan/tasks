@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <div id="tasks">
+    <!-- iterate through tasks to and output html for each one -->
+      <% tasks.forEach(function(task,i) { %>
+         <div>
+            <!-- make a link using id -->
+            <a href="/task/<%= task.id%>">
+            <!-- output name -->
+              <%= task.name %>
+            </a>
+         </div>
+      <% }) %>
+    </div>
+
+    <div id="newTask">
+      <textarea id="taskName"></textarea>
+      <textarea id="taskDetail"></textarea>
+      <a href="javascript:void(0)" onclick="newTask()">Make New Task</a>
+    </div>
+
+    <script>
+    var newTask = function(){
+
+      var name = document.getElementById('taskName').value
+      var detail = document.getElementById('taskDetail').value
+
+      // construct url with query parameters
+      var url = "/new?name="+name+"&detail="+detail;
+      console.log(url)
+
+      //XMLHttpRequest is a built-in js object to make http requests
+      var xhr = new XMLHttpRequest();
+      //make get request to our /new route
+      xhr.open( "GET", url, false );
+      xhr.onload = function() {
+        //this function executes when the request comes back
+        if (xhr.readyState == 4) {
+          console.log(xhr.responseText)
+          
+          //JSON as TEXT
+          var original = xhr.responseText
+
+          //convert text to object
+          var newId = JSON.parse(xhr.responseText).id
+
+
+          if(newId != undefined)
+            window.location.assign("/task/"+newId)            
+        }
+      }
+      xhr.send( null );
+    
+    }
+
+    </script>
+
+  </body>
+
+</html>
