@@ -38,6 +38,9 @@ routes.init(dbModule);
 app.get('/', routes.home);
 app.get('/task/:id', routes.task);
 app.get('/new', routes.new)
+app.get('/partials/:name', routes.partials)
+
+app.get('/api/tasks', routes.tasksData)
 
 app.delete('/delete/:id', routes.delete)
 

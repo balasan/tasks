@@ -104,6 +104,23 @@ exports.new = function(req, res){
 }
 
 
+exports.partials = function(req, res){
+
+  var name = req.params.name;
+  res.render('partials/'+name)
+
+}
 
 
+exports.tasksData = function(req, res){
+  //query the data using our model - we are asking for all the data in the model
+  db.tasksModel.find(function(err,tasks){
+    //we are inside the callback function
+    //this function doesn't execute immidiately - only after the database returns the responce
+    //if there is no error we return our home page and populate the data
+    if(!err){
+      res.json(tasks)
+    }
+  })
+}
 
