@@ -17,7 +17,8 @@
             <a href="/task/<%= task.id%>">
             <!-- output name -->
               <%= task.name %>
-            </a>
+            </a>&nbsp;
+            <a href="javascript:void(0)" onClick="deleteTask('<%= task.id%>')">delete this task</a>
          </div>
       <% }) %>
     </div>
@@ -29,6 +30,27 @@
     </div>
 
     <script>
+
+      var deleteTask = function(id){
+      
+      var url = "/delete/" + id;
+
+      var xhr = new XMLHttpRequest();
+      //make get request to our /new route
+      xhr.open( "DELETE", url, false );
+      xhr.onload = function() {
+        //this function executes when the request comes back
+        if (xhr.readyState == 4) {
+          console.log(xhr.responseText)
+          
+          if(xhr.responseText == "ok")
+            window.location.assign("/")            
+        }
+      }
+      xhr.send( null );
+
+    }
+
     var newTask = function(){
 
       var name = document.getElementById('taskName').value

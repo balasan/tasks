@@ -20,6 +20,19 @@ exports.init = function(dbModule){
   console.log(db) 
 }
 
+exports.delete = function(req, res){
+
+  var id = req.params.id
+
+  db.tasksModel.findByIdAndRemove(id,function(err){
+    if(!err){
+      res.send('ok')
+    }
+    else{
+      res.send('not ok')
+    }
+  })
+}
 
 /* GET home page. */
 exports.home = function(req, res){

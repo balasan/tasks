@@ -39,6 +39,8 @@ app.get('/', routes.home);
 app.get('/task/:id', routes.task);
 app.get('/new', routes.new)
 
+app.delete('/delete/:id', routes.delete)
+
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
