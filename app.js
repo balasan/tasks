@@ -24,11 +24,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
 
+var dbModule = require('./db');
+
 //import our routes file from /routes/main.js
 var routes = require('./routes/main');
 
+//initialize routes with our database object
+routes.init(dbModule);
+
 //this is where we define our routes
 //routes must correspond to the functions we create our routes file
+
 app.get('/', routes.home);
 app.get('/task/:id', routes.task);
 app.get('/new', routes.new)
